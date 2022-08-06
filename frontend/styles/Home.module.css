@@ -1,17 +1,23 @@
-.title {
-  display: flex;
-  justify-content: center;
-}
-
-.form {
+.container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  flex-grow: 1;
+}
+
+.results {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.resultsRow {
+  display: flex;
 }
 
 .footer {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: center;
-
 }

@@ -1,0 +1,29 @@
+{
+  "editor.rulers": [80, 88],
+
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": ["--max-line-length=88", "--extend-ignore=E203"],
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": [
+    "--max-line-length=88",
+    "--disable=C0330,C0326"
+  ],
+  "python.linting.enabled": true,
+  "python.formatting.blackPath": "black",
+  "python.formatting.blackArgs": ["--target-version=py38"],
+  "editor.formatOnSave": true,
+  "workbench.settings.editor": "json",
+  "[terraform]": {
+    "editor.formatOnSave": true
+  },
+  "[yaml]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.tabSize": 2
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "python.sortImports.args": ["--profile", "black"],
+  "cSpell.enableFiletypes": ["!yaml"],
+  "files.insertFinalNewline": true
+}
