@@ -2,16 +2,18 @@
   "name": "frontend-web",
   "version": "0.1.0",
   "private": true,
+  "license": "Proprietary",
   "scripts": {
-    "start:dev": "next dev",
-    "start:prod": "next start",
+    "start:development": "next dev",
+    "start:production": "next start",
     "build": "next build",
     "lint": "next lint"
   },
   "dependencies": {
     "next": "12.2.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sharp": "^0.30.7"
   },
   "devDependencies": {
     "@types/node": "18.0.3",

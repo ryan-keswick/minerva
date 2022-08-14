@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 
 function Result() {
   let images: { url: string }[] = [];
-  let prompt: string;
+  let prompt = "";
   const noPromptYet = () => {
     return true;
   };
