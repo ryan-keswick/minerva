@@ -14,7 +14,7 @@
   "editor.formatOnSave": true,
   "workbench.settings.editor": "json",
   "[terraform]": {
-    "editor.formatOnSave": true
+    "editor.tabSize": 2
   },
   "[yaml]": {
     "editor.formatOnSave": true
