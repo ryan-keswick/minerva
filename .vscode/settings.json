@@ -25,5 +25,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "python.sortImports.args": ["--profile", "black"],
   "cSpell.enableFiletypes": ["!yaml"],
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "cSpell.words": ["norefeer"]
 }
