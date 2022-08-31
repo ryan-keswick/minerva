@@ -10,8 +10,8 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <div>
         <Head>
-          <title>Free Dalle</title>
-          <meta name="description" content="Free Dalle Mini Images" />
+          <title>Free Stable Diffusion</title>
+          <meta name="description" content="Free Stable Diffusion" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <h1>Enter Prompt Below!</h1>
