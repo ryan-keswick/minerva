@@ -5,11 +5,22 @@ import styles from '../styles/Home.module.css';
 import NineResults from '@components/NineResults';
 import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion';
 import { initialPrompt } from '@constants/ai';
+import SubmitPromptButton from '@components/SubmitPromptButton';
+import React from 'react';
 
 const Home: NextPage = () => {
-  const { data, isLoading, isError } = useStableDiffusion(initialPrompt);
+  const [prompt, setPrompt] = React.useState(initialPrompt);
+  const { data, isLoading, isError } = useStableDiffusion(prompt);
 
-  if (isError) return <h1>Error =(</h1>;
+  const handleSubmit = async (event) => {
+    // Stop the form from submitting and refreshing the page.
+    event.preventDefault();
+    setPrompt(event.target.prompt.value.toLowerCase().replace(/\s/g, '-'));
+  };
+
+  if (!isLoading && (isError || data.message === 'fail')) {
+    return <h1>Error =(</h1>;
+  }
 
   return (
     <div className={styles.container}>
@@ -20,6 +31,7 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <h1>Enter Prompt Below!</h1>
+        <SubmitPromptButton handleSubmit={handleSubmit} />
       </div>
       {isLoading ? (
         <h1>Loading</h1>

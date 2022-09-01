@@ -70,17 +70,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const { prompt } = req.query;
 
   if (req.method !== 'GET') {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    res.status(405).json({ message: 'fail' });
     return;
   }
   if (!prompt) {
-    res.status(400).json({ message: 'Missing prompt' });
+    res.status(400).json({ message: 'fail' });
     return;
   }
 
   const images = getImages(prompt as string);
   if (prompt === initialPrompt) {
     res.status(200).json({
+      message: 'success.',
       images: images,
     });
     return;
@@ -91,15 +92,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       await addToQueue(prompt as string);
     } catch (error) {
       console.log(error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'fail' });
       return;
     }
     await delay(1000);
     let i = 0;
     while (!(await hasAccessToImage(prompt as string))) {
       await delay(1000);
-      if (i === 10) {
-        res.status(500).json({ message: 'Internal server error' });
+      if (i === 2) {
+        res.status(500).json({ message: 'fail' });
         return;
       }
       i++;
@@ -107,6 +108,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 
   res.status(200).json({
+    message: 'success.',
     images: images,
   });
 };
