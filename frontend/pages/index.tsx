@@ -3,9 +3,14 @@ import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import NineResults from '@components/NineResults';
+import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion';
 
 const Home: NextPage = () => {
-  const results = 'a-sketch-of-a-fox-with-a-rabbit-in-its-mouth';
+  const initPrompt = 'a-sketch-of-a-fox-with-a-rabbit-in-its-mouth';
+  const { data, isLoading, isError } = useStableDiffusion(initPrompt);
+
+  if (isError) return <h1>Error =(</h1>;
+
   return (
     <div className={styles.container}>
       <div>
@@ -16,7 +21,11 @@ const Home: NextPage = () => {
         </Head>
         <h1>Enter Prompt Below!</h1>
       </div>
-      <NineResults imageFolder={results} prompt={'placeholder'} />
+      {isLoading ? (
+        <h1>Loading</h1>
+      ) : (
+        <NineResults images={data.images} prompt={'placeholder'} />
+      )}
     </div>
   );
 };
@@ -28,8 +37,8 @@ function Footer() {
   return (
     <div className={styles.footer}>
       <footer>
-        <p>Follow Me on Twitter! </p>
         <a href="https://twitter.com/RyanKeswick">
+          <p>Follow Me on Twitter! </p>
           <Image
             src={twitterIcon}
             alt="Ryan Keswick's Twitter"

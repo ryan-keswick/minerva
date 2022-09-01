@@ -1,6 +1,5 @@
 import { Wrapper, CenterImage, MiddleImage, MiddleMiddleImage } from './styled';
 import ImageResult from './components/ImageResult';
-import { S3_BUCKET_URL } from '@constants/aws';
 
 interface Props {
   images: string;

@@ -7,6 +7,7 @@ interface Props {
 }
 
 export const ImageResult = ({ image, prompt }: Props) => {
+  console.log(image, prompt);
   return (
     <Wrapper>
       <a href={image} target="_blank" rel="noreferrer">
