@@ -8,6 +8,7 @@ import {
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
 } from '@constants/aws';
+import { initialPrompt } from '@constants/ai';
 
 const getImages = (prompt: string) => {
   const images = [];
@@ -78,6 +79,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   }
 
   const images = getImages(prompt as string);
+  if (prompt === initialPrompt) {
+    res.status(200).json({
+      images: images,
+    });
+    return;
+  }
+
   if (!(await hasAccessToImage(prompt as string))) {
     try {
       await addToQueue(prompt as string);

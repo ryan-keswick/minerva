@@ -4,10 +4,10 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import NineResults from '@components/NineResults';
 import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion';
+import { initialPrompt } from '@constants/ai';
 
 const Home: NextPage = () => {
-  const initPrompt = 'a-sketch-of-a-fox-with-a-rabbit-in-its-mouth';
-  const { data, isLoading, isError } = useStableDiffusion(initPrompt);
+  const { data, isLoading, isError } = useStableDiffusion(initialPrompt);
 
   if (isError) return <h1>Error =(</h1>;
 
@@ -26,6 +26,7 @@ const Home: NextPage = () => {
       ) : (
         <NineResults images={data.images} prompt={'placeholder'} />
       )}
+      <Footer />
     </div>
   );
 };
