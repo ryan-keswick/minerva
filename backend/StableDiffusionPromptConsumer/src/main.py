@@ -1,4 +1,6 @@
 import boto3
+
+from time import sleep
 import os
 
 from PIL import Image
@@ -73,6 +75,7 @@ def launch_consumer():
         for message in messages:
             process_message(message )
             message.delete()
+        sleep(1)
 
 if __name__ == "__main__":
     main()

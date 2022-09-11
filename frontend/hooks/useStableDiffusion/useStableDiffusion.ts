@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export const useStableDiffusion = (prompt: string) => {
   const { data, error } = useSWR(
@@ -8,9 +8,18 @@ export const useStableDiffusion = (prompt: string) => {
     fetcher
   );
 
+  const isLoading = !error && !data;
+  if (isLoading) {
+    return {
+      data: { images: ['0'] },
+      isLoading: isLoading,
+      isError: error,
+    };
+  }
+
   return {
     data: data,
-    isLoading: !error && !data,
+    isLoading: isLoading,
     isError: error,
   };
 };

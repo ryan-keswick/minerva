@@ -2,11 +2,11 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import NineResults from '@components/NineResults';
 import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion';
 import { initialPrompt } from '@constants/ai';
 import SubmitPromptButton from '@components/SubmitPromptButton';
 import React from 'react';
+import ImageResult from '@components/NineResults/components/ImageResult';
 
 const Home: NextPage = () => {
   const [prompt, setPrompt] = React.useState(initialPrompt);
@@ -36,19 +36,13 @@ const Home: NextPage = () => {
         <h1>Enter Prompt Below!</h1>
         <SubmitPromptButton handleSubmit={handleSubmit} />
       </div>
-      {isLoading ? (
-        <NineResults
-          images={['0', '1', '2', '3', '4', '5', '6', '7', '8']}
-          prompt={prompt}
-          isLoading={isLoading}
-        />
-      ) : (
-        <NineResults
-          images={data.images}
-          prompt={'placeholder'}
-          isLoading={isLoading}
-        />
-      )}
+      <ImageResult
+        image={data.images[0]}
+        width={512}
+        height={512}
+        prompt={prompt}
+        isLoading={isLoading}
+      />
       <Footer />
     </div>
   );
@@ -56,21 +50,23 @@ const Home: NextPage = () => {
 
 export default Home;
 
-function Footer() {
+const Footer = () => {
   const twitterIcon = '/images/twitter.png';
   return (
     <div className={styles.footer}>
       <footer>
         <a href="https://twitter.com/RyanKeswick">
-          <p>Follow Me on Twitter! </p>
-          <Image
-            src={twitterIcon}
-            alt="Ryan Keswick's Twitter"
-            width={18}
-            height={15}
-          />
+          <p>
+            {'Follow Me on Twitter!  '}
+            <Image
+              src={twitterIcon}
+              alt="Ryan Keswick's Twitter"
+              width={18}
+              height={15}
+            />
+          </p>
         </a>
       </footer>
     </div>
   );
-}
+};
