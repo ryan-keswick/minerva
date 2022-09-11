@@ -12,7 +12,10 @@ const Home: NextPage = () => {
   const [prompt, setPrompt] = React.useState(initialPrompt);
   const { data, isLoading, isError } = useStableDiffusion(prompt);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: {
+    preventDefault: () => void;
+    target: { prompt: { value: string } };
+  }) => {
     // Stop the form from submitting and refreshing the page.
     event.preventDefault();
     setPrompt(event.target.prompt.value.toLowerCase().replace(/\s/g, '-'));
@@ -34,9 +37,17 @@ const Home: NextPage = () => {
         <SubmitPromptButton handleSubmit={handleSubmit} />
       </div>
       {isLoading ? (
-        <h1>Loading</h1>
+        <NineResults
+          images={['0', '1', '2', '3', '4', '5', '6', '7', '8']}
+          prompt={prompt}
+          isLoading={isLoading}
+        />
       ) : (
-        <NineResults images={data.images} prompt={'placeholder'} />
+        <NineResults
+          images={data.images}
+          prompt={'placeholder'}
+          isLoading={isLoading}
+        />
       )}
       <Footer />
     </div>

@@ -2,3 +2,6 @@ __pycache__
 .terraform
 terraform.tfstate
 terraform.tfstate.backup
+
+stable-diffusion-v1-4
+stable-diffusion

@@ -1,6 +1,8 @@
+import React from 'react';
+
 interface Props {
   lightMode?: boolean;
-  handleSubmit: (event) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export const SubmitPromptButton = ({ lightMode, handleSubmit }: Props) => {

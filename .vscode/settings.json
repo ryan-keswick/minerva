@@ -18,7 +18,7 @@
     "editor.formatOnSave": true
   },
   "[yaml]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
   },
   "[typescript]": {
     "editor.tabSize": 2
