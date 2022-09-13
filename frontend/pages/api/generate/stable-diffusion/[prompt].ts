@@ -98,8 +98,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     await delay(1000);
     let i = 0;
     while (!(await hasAccessToImage(prompt as string))) {
-      await delay(1000);
-      if (i === 120) {
+      await delay(2000);
+      if (i === 600) {
         res.status(500).json({ message: 'fail' });
         return;
       }

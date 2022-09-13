@@ -1,6 +1,6 @@
 locals {
   instance_type = "p2.xlarge"
-  ami           = "ami-0932d5903821bbb22"
+  ami           = "ami-0a53718c4bb3f9f22"
 }
 
 resource "aws_vpc" "minerva_gpu_vpc" {

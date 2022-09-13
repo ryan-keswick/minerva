@@ -1,0 +1,15 @@
+FROM nvidia/cuda:11.6.0-base-ubuntu20.04 as base
+WORKDIR /app
+USER root
+
+FROM base as build
+RUN apt update -y && \
+    apt upgrade -y && \
+    apt install software-properties-common -y && \
+    add-apt-repository ppa:deadsnakes/ppa -y && \
+    apt install python3.10 -y && \
+    apt install python3-pip -y
+
+RUN pip install diffusers==0.3.0 transformers scipy ftfy Pillow boto3
+
+COPY ./src /app
