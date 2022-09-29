@@ -78,6 +78,7 @@ def process_message(message):
         image = generate_image(prompt, warmup=False)
         save_image_to_s3(image, json["prompt"])
         print(f"Image generated for prompt: {prompt}")
+    print("Message processed")
 
 
 def main():

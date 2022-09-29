@@ -4,6 +4,6 @@
 
 sudo yum update -y
 aws ecr get-login-password --region us-east-1 | \
- sudo docker login --username AWS --password-stdin 777680051979.dkr.ecr.us-east-1.amazonaws.com
+ docker login --username AWS --password-stdin 777680051979.dkr.ecr.us-east-1.amazonaws.com
 
-sudo docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi
+docker run --gpus all 777680051979.dkr.ecr.us-east-1.amazonaws.com/minerva/stablediffusionpromptconsumer:0.1.3
