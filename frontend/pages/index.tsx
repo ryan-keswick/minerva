@@ -8,9 +8,12 @@ import SubmitPromptButton from '@components/SubmitPromptButton';
 import React from 'react';
 import ImageResult from '@components/NineResults/components/ImageResult';
 
+import { useSession, signIn, signOut } from 'next-auth/react';
+
 const Home: NextPage = () => {
   const [prompt, setPrompt] = React.useState(initialPrompt);
   const { data, isLoading, isError } = useStableDiffusion(prompt);
+  const { data: session } = useSession();
 
   const handleSubmit = async (event: {
     preventDefault: () => void;
@@ -33,6 +36,14 @@ const Home: NextPage = () => {
           <meta name="description" content="Free Stable Diffusion" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
+        {session ? (
+          <>
+            Signed in as {session.user.name} <br />
+            <button onClick={() => signOut()}>Sign out</button>
+          </>
+        ) : (
+          <button onClick={() => signIn()}>Sign in</button>
+        )}
         <h1>Enter Prompt Below!</h1>
         <SubmitPromptButton handleSubmit={handleSubmit} />
       </div>
