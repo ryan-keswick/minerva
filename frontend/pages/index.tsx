@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion';
 import { initialPrompt } from '@constants/ai';
 import SubmitPromptButton from '@components/SubmitPromptButton';
@@ -29,7 +28,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <div class="flex">
       <div>
         <Head>
           <title>Free Stable Diffusion</title>
@@ -64,7 +63,7 @@ export default Home;
 const Footer = () => {
   const twitterIcon = '/images/twitter.png';
   return (
-    <div className={styles.footer}>
+    <div>
       <footer>
         <a href="https://twitter.com/RyanKeswick">
           <p>
