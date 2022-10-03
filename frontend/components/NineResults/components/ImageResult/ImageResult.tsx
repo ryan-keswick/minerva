@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { Wrapper } from './styled';
 import loadingImage from '@public/svg/loading.svg';
 
 interface Props {
@@ -18,14 +17,26 @@ export const ImageResult = ({
   isLoading,
 }: Props) => {
   return (
-    <Wrapper>
+    <div className="rounded-md border-2 border-white hover:border-dark-blue">
       {isLoading ? (
-        <Image src={loadingImage} alt={prompt} width={width} height={height} />
+        <Image
+          className="rounded-md"
+          src={loadingImage}
+          alt={prompt}
+          width={width}
+          height={height}
+        />
       ) : (
         <a href={image} target="_blank" rel="noreferrer">
-          <Image src={image} alt={prompt} width={width} height={height} />
+          <Image
+            className="rounded-md"
+            src={image}
+            alt={prompt}
+            width={width}
+            height={height}
+          />
         </a>
       )}
-    </Wrapper>
+    </div>
   );
 };

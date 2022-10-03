@@ -5,9 +5,9 @@ import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion
 import { initialPrompt } from '@constants/ai';
 import SubmitPromptButton from '@components/SubmitPromptButton';
 import React from 'react';
-import ImageResult from '@components/NineResults/components/ImageResult';
-
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { ImageResult } from '@components/NineResults/components/ImageResult/ImageResult';
+import { TopBar } from '@components/TopBar/TopBar';
+import { useSession } from 'next-auth/react';
 
 const Home: NextPage = () => {
   const [prompt, setPrompt] = React.useState(initialPrompt);
@@ -28,31 +28,32 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div class="flex">
+    <div>
       <div>
         <Head>
           <title>Free Stable Diffusion</title>
           <meta name="description" content="Free Stable Diffusion" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        {session ? (
-          <>
-            Signed in as {session.user.name} <br />
-            <button onClick={() => signOut()}>Sign out</button>
-          </>
-        ) : (
-          <button onClick={() => signIn()}>Sign in</button>
-        )}
-        <h1>Enter Prompt Below!</h1>
+        <TopBar session={session} />
+        <h1 className="m-4 flex justify-center text-2xl text-dark-blue">
+          Enter Prompt Below!
+        </h1>
         <SubmitPromptButton handleSubmit={handleSubmit} />
       </div>
-      <ImageResult
-        image={data.images[0]}
-        width={512}
-        height={512}
-        prompt={prompt}
-        isLoading={isLoading}
-      />
+      <br />
+      <br />
+      <div className="flex justify-center">
+        <ImageResult
+          image={data.images[0]}
+          width={512}
+          height={512}
+          prompt={prompt}
+          isLoading={isLoading}
+        />
+      </div>
+      <br />
+      <br />
       <Footer />
     </div>
   );
@@ -63,7 +64,7 @@ export default Home;
 const Footer = () => {
   const twitterIcon = '/images/twitter.png';
   return (
-    <div>
+    <div className="flex justify-center">
       <footer>
         <a href="https://twitter.com/RyanKeswick">
           <p>

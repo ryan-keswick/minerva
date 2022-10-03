@@ -27,5 +27,8 @@
   "python.sortImports.args": ["--profile", "black"],
   "cSpell.enableFiletypes": ["!yaml"],
   "files.insertFinalNewline": true,
-  "cSpell.words": ["norefeer"]
+  "cSpell.words": ["norefeer"],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }
