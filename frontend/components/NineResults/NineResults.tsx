@@ -1,5 +1,5 @@
 import { Wrapper, CenterImage, MiddleImage, MiddleMiddleImage } from './styled';
-import ImageResult from './components/ImageResult/ImageResult';
+import ImageResult from './components/ImageResult';
 
 interface Props {
   images: string[];

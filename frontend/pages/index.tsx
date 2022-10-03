@@ -5,8 +5,8 @@ import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion
 import { initialPrompt } from '@constants/ai';
 import SubmitPromptButton from '@components/SubmitPromptButton';
 import React from 'react';
-import { ImageResult } from '@components/NineResults/components/ImageResult/ImageResult';
-import { TopBar } from '@components/TopBar/TopBar';
+import ImageResult from '@components/NineResults/components/ImageResult';
+import TopBar from '@components/TopBar';
 import { useSession } from 'next-auth/react';
 
 const Home: NextPage = () => {

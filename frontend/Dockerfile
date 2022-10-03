@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM node:18.4.0-alpine3.16 as base
+FROM --platform=$BUILDPLATFORM node:16.17.1-alpine3.16 as base
 WORKDIR /app
 
 FROM base as build

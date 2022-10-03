@@ -1,5 +1,3 @@
-import type FormEvent from 'react';
-
 interface Props {
   lightMode?: boolean;
   handleSubmit: (event: any) => void;
