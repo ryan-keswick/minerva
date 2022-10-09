@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Image from 'next/image';
 import Head from 'next/head';
 import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion';
 import { initialPrompt } from '@constants/ai';
@@ -8,8 +7,9 @@ import React from 'react';
 import ImageResult from '@components/NineResults/components/ImageResult';
 import TopBar from '@components/TopBar';
 import { useSession } from 'next-auth/react';
+import Footer from '@components/Footer';
 
-const Home: NextPage = () => {
+export const Home: NextPage = () => {
   const [prompt, setPrompt] = React.useState(initialPrompt);
   const { data, isLoading, isError } = useStableDiffusion(prompt);
   const { data: session } = useSession();
@@ -26,6 +26,8 @@ const Home: NextPage = () => {
   if (!isLoading && (isError || data.message === 'fail')) {
     return <h1>Error =(</h1>;
   }
+
+  console.log(session);
 
   return (
     <div>
@@ -55,29 +57,6 @@ const Home: NextPage = () => {
       <br />
       <br />
       <Footer />
-    </div>
-  );
-};
-
-export default Home;
-
-const Footer = () => {
-  const twitterIcon = '/images/twitter.png';
-  return (
-    <div className="flex justify-center">
-      <footer>
-        <a href="https://twitter.com/RyanKeswick">
-          <p>
-            {'Follow Me on Twitter!  '}
-            <Image
-              src={twitterIcon}
-              alt="Ryan Keswick's Twitter"
-              width={18}
-              height={15}
-            />
-          </p>
-        </a>
-      </footer>
     </div>
   );
 };
