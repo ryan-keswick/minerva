@@ -11,8 +11,11 @@ import Footer from '@components/Footer';
 
 export const Home: NextPage = () => {
   const [prompt, setPrompt] = React.useState(initialPrompt);
-  const { data, isLoading, isError } = useStableDiffusion(prompt);
   const { data: session } = useSession();
+  const { data, isLoading, isError } = useStableDiffusion(
+    prompt,
+    session?.user.id
+  );
 
   const handleSubmit = async (event: {
     preventDefault: () => void;
@@ -26,8 +29,6 @@ export const Home: NextPage = () => {
   if (!isLoading && (isError || data.message === 'fail')) {
     return <h1>Error =(</h1>;
   }
-
-  console.log(session);
 
   return (
     <div>

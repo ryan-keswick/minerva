@@ -9,6 +9,9 @@ import {
   AWS_SECRET_ACCESS_KEY,
 } from '@constants/aws';
 import { initialPrompt } from '@constants/ai';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const getImages = (prompt: string) => {
   const images = [];
@@ -67,7 +70,7 @@ interface Data {
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-  const { prompt } = req.query;
+  const { prompt, userId } = req.query;
 
   if (req.method !== 'GET') {
     res.status(405).json({ message: 'fail' });
@@ -107,6 +110,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
   }
 
+  console.log(prompt, images, userId);
+  if (userId) {
+    try {
+      await prisma.prompt.create({
+        data: {
+          prompt: prompt as string,
+          image: images[0],
+          author: {
+            connect: {
+              id: userId as string,
+            },
+          },
+        },
+      });
+    } catch (error) {}
+  }
   res.status(200).json({
     message: 'success.',
     images: images,
