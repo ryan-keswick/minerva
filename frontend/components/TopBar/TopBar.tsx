@@ -30,7 +30,7 @@ export const TopBar = ({ session }: Props) => {
         </Link>
         <h1 className="grid place-content-center">Minerva</h1>
       </div>
-      <div className="invisible my-5 grid grid-cols-3 place-content-center gap-4 md:visible ">
+      <div className="invisible my-5 flex justify-between md:visible ">
         <TopBarItem text={'Learn'} />
         <TopBarItem text={'Community'} />
         <TopBarItem text={'Pricing'} />
