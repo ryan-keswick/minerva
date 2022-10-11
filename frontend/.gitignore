@@ -28,6 +28,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# Prod ecs values
+prod-values-ecs.env
+
 # vercel
 .vercel
 
