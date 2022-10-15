@@ -15,7 +15,7 @@ on:
       - main
 
 env:
-  AWS_REGION: us-west-1
+  AWS_REGION: us-east-1
   ECR_REPOSITORY: minerva/frontend
   ECS_SERVICE: frontend
   ECS_CLUSTER: minerva
@@ -39,9 +39,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@67fbcbb121271f7775d2e7715933280b06314838
         with:
-          aws-region: us-east-1
+          aws-region: ${{ env.AWS_REGION }}
           role-to-assume: arn:aws:iam::777680051979:role/github-deployer
-          role-session-name: github-deployer
 
       - name: Login to Amazon ECR
         id: login-ecr
