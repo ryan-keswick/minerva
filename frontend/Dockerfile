@@ -4,6 +4,7 @@ WORKDIR /app
 FROM base as build
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
+RUN yarn prisma generate
 
 COPY . .
 RUN yarn build
