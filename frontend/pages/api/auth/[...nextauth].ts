@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import CognitoProvider from 'next-auth/providers/cognito';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import prisma from '@lib/prismadb';
+import prisma from '@/lib/prismadb';
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),

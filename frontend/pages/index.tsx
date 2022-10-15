@@ -1,22 +1,21 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useStableDiffusion } from '@hooks/useStableDiffusion/useStableDiffusion';
-import { initialPrompt } from '@constants/ai';
-import SubmitPromptButton from '@components/SubmitPromptButton';
+import { useStableDiffusion } from '@/hooks/useStableDiffusion/useStableDiffusion';
+import { initialPrompt } from '@/constants/ai';
+import SubmitPromptButton from '@/components/SubmitPromptButton';
 import React from 'react';
-import ImageResult from '@components/NineResults/components/ImageResult';
-import TopBar from '@components/TopBar';
+import ImageResult from '@/components/NineResults/components/ImageResult';
+import TopBar from '@/components/TopBar';
 import { useSession } from 'next-auth/react';
-import Footer from '@components/Footer';
+import Footer from '@/components/Footer';
 
-export const Home: NextPage = () => {
+const Home: NextPage = () => {
   const [prompt, setPrompt] = React.useState(initialPrompt);
   const { data: session } = useSession();
   const { data, isLoading, isError } = useStableDiffusion(
     prompt,
-    session?.user.id
+    session?.user?.id
   );
-
   const handleSubmit = async (event: {
     preventDefault: () => void;
     target: { prompt: { value: string } };
@@ -25,10 +24,9 @@ export const Home: NextPage = () => {
     event.preventDefault();
     setPrompt(event.target.prompt.value.toLowerCase().replace(/\s/g, '-'));
   };
-
-  if (!isLoading && (isError || data.message === 'fail')) {
-    return <h1>Error =(</h1>;
-  }
+  // if (!isLoading && (isError || data.message === 'fail')) {
+  // return <h1>Error =(</h1>;
+  // }
 
   return (
     <div>
@@ -61,3 +59,5 @@ export const Home: NextPage = () => {
     </div>
   );
 };
+
+export default Home;

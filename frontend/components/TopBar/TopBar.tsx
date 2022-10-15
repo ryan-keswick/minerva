@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import homeImage from '@public/images/homeImage.png';
+import homeImage from '@/public/images/homeImage.png';
 import { signIn, signOut } from 'next-auth/react';
 
 const TopBarItem = ({ text, path }: { text: string; path: string }) => {

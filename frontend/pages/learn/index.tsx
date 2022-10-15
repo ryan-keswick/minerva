@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
-import Topbar from '@components/TopBar';
+import Topbar from '@/components/TopBar';
 import { useSession } from 'next-auth/react';
-import Footer from '@components/Footer';
+import Footer from '@/components/Footer';
 
 export const Learn: NextPage = () => {
   const { data: session } = useSession();
@@ -13,3 +13,5 @@ export const Learn: NextPage = () => {
     </div>
   );
 };
+
+export default Learn;

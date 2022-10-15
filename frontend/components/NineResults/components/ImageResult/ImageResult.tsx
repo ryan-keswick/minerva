@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import loadingImage from '@public/svg/loading.svg';
+import loadingImage from '@/public/svg/loading.svg';
 
 interface Props {
   image: string;

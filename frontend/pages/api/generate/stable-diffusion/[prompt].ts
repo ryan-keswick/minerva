@@ -7,8 +7,8 @@ import {
   REGION,
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
-} from '@constants/aws';
-import { initialPrompt } from '@constants/ai';
+} from '@/constants/aws';
+import { initialPrompt } from '@/constants/ai';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();

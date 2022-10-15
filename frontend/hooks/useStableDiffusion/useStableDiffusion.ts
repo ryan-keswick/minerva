@@ -2,7 +2,10 @@ import useSWR from 'swr';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-export const useStableDiffusion = (prompt: string, userId: string) => {
+export const useStableDiffusion = (
+  prompt: string,
+  userId: string | undefined
+) => {
   const key = userId
     ? `/api/generate/stable-diffusion/${prompt}?userId=${userId}`
     : `/api/generate/stable-diffusion/${prompt}`;

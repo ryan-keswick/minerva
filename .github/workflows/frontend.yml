@@ -7,7 +7,7 @@
 # To get a newer version, you will need to update the SHA.
 # You can also reference a tag or branch, but the action may change without warning.
 
-name: Deploy to Amazon ECS
+name: Deploy Frontend
 
 on:
   push:
@@ -16,7 +16,7 @@ on:
 
 env:
   AWS_REGION: us-west-1
-  ECR_REPOSITORY: minerva/frontend # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: minerva/frontend
   ECS_SERVICE: frontend
   ECS_CLUSTER: minerva
   ECS_TASK_DEFINITION: ./aws/frontend-task-definition.json
@@ -71,6 +71,16 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
+
+      - name:
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.17.1'
+        run: |
+          npm install prisma@4.4.0
+          npx prisma migrate deploy --schema ./frontend/prisma/schema.prisma
+
+
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e

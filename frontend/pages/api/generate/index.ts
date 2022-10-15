@@ -5,7 +5,7 @@ import {
   REGION,
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
-} from '@constants/aws';
+} from '@/constants/aws';
 
 type Data = {
   message: string;
