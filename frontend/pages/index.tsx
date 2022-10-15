@@ -25,10 +25,6 @@ const Home: NextPage = () => {
     setPrompt(event.target.prompt.value.toLowerCase().replace(/\s/g, '-'));
   };
 
-  if (!isLoading && (isError || data.message === 'fail')) {
-    return <h1>Error =(</h1>;
-  }
-
   return (
     <div>
       <div>
@@ -51,7 +47,7 @@ const Home: NextPage = () => {
           width={512}
           height={512}
           prompt={prompt}
-          isLoading={isLoading}
+          isLoading={isLoading || isError || data.message === 'fail'}
         />
       </div>
       <br />
