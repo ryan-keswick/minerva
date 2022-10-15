@@ -21,6 +21,7 @@ env:
   ECS_CLUSTER: minerva
   ECS_TASK_DEFINITION: ./frontend/aws/frontend-task-definition.json
   CONTAINER_NAME: frontend
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 permissions:
       id-token: write   # This is required for requesting the JWT
