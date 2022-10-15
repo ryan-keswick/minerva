@@ -1,22 +1,18 @@
-FROM --platform=$BUILDPLATFORM node:16.17.1-alpine3.16 as base
+FROM --platform=$TARGETPLATFORM node:16.17.1-alpine3.16 as base
 WORKDIR /app
-
-FROM base as build
-COPY frontend/package.json frontend/yarn.lock ./
-RUN yarn install --frozen-lockfile
 
 COPY frontend/ .
 COPY ./prisma ./prisma
-RUN ls -al
-RUN yarn build
+RUN yarn install --frozen-lockfile && \
+    yarn build
 RUN yarn prisma generate
 
-FROM base as release
+FROM --platform=$TARGETPLATFORM base as release
 WORKDIR /app
-COPY --from=build /app/node_modules ./node_modules
-COPY --from=build /app/public ./public
-COPY --from=build /app/package.json ./package.json
-COPY --from=build /app/next.config.js ./next.config.js
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/public ./public
+COPY --from=base /app/package.json ./package.json
+COPY --from=base /app/next.config.js ./next.config.js
 
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001
