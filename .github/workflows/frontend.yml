@@ -34,6 +34,9 @@ jobs:
     environment: prod
 
     steps:
+      - name: see if jq is installed
+        run: curl https://api.github.com/meta | jq '.actions[]'
+
       - name: Checkout
         uses: actions/checkout@v3
 
