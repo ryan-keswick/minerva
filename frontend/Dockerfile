@@ -14,8 +14,8 @@ COPY --from=base /app/public ./public
 COPY --from=base /app/package.json ./package.json
 COPY --from=base /app/next.config.js ./next.config.js
 
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nextjs -u 1001
+RUN addgroup  nodejs && \
+    adduser nextjs
 
 COPY --from=base --chown=nextjs:nodejs /app/.next ./.next
 
