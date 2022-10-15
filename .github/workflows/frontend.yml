@@ -25,7 +25,7 @@ permissions:
 jobs:
   deploy:
     name: Deploy
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: prod
 
     steps:
@@ -54,7 +54,7 @@ jobs:
           file: frontend/Dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY}}:${{ github.sha }}
-          platforms: linux/arm64
+          platforms: linux/amd64
           builder: ${{ steps.buildx.outputs.name }}
 
       - name: Fill in the new image ID in the Amazon ECS task definition
