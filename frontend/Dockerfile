@@ -2,11 +2,12 @@ FROM --platform=$BUILDPLATFORM node:16.17.1-alpine3.16 as base
 WORKDIR /app
 
 FROM base as build
-COPY package.json yarn.lock ./
+COPY frontend/package.json frontend/yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-COPY . .
-COPY ../prisma ./prisma/
+COPY frontend/ .
+COPY ./prisma ./prisma
+RUN ls -al
 RUN yarn build
 RUN yarn prisma generate
 
