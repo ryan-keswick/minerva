@@ -24,9 +24,10 @@ const Home: NextPage = () => {
     event.preventDefault();
     setPrompt(event.target.prompt.value.toLowerCase().replace(/\s/g, '-'));
   };
-  // if (!isLoading && (isError || data.message === 'fail')) {
-  // return <h1>Error =(</h1>;
-  // }
+
+  if (!isLoading && (isError || data.message === 'fail')) {
+    return <h1>Error =(</h1>;
+  }
 
   return (
     <div>

@@ -110,8 +110,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
   }
 
-  console.log(prompt, images, userId);
-  if (userId) {
+  if (userId !== 'undefined') {
     try {
       await prisma.prompt.create({
         data: {
