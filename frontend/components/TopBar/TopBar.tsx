@@ -43,7 +43,7 @@ export const TopBar = ({ session }: Props) => {
             Signed in as {session.user.name} <br />
             <button
               className="m-5 grid h-10 w-24 place-content-center rounded-full hover:bg-dark-blue hover:text-white"
-              onClick={() => signOut()}
+              onClick={() => signOut({ redirect: false })}
             >
               Sign out
             </button>
@@ -51,7 +51,7 @@ export const TopBar = ({ session }: Props) => {
         ) : (
           <button
             className="m-5 grid h-10 w-24 place-content-center rounded-full hover:bg-dark-blue hover:text-white"
-            onClick={() => signIn()}
+            onClick={() => signIn('cognito')}
           >
             Sign in
           </button>
