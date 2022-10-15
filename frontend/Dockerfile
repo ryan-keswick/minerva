@@ -1,4 +1,4 @@
-FROM --platform=$TARGETPLATFORM node:16.17.1-alpine3.16 as base
+FROM --platform=$TARGETPLATFORM node:16.17.1-slim as base
 WORKDIR /app
 
 COPY frontend/ .
