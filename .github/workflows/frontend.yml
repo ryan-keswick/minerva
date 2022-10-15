@@ -34,9 +34,6 @@ jobs:
     environment: prod
 
     steps:
-      - name: see if jq is installed
-        run: curl https://api.github.com/meta | jq '.actions[]'
-
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -77,10 +74,28 @@ jobs:
         with:
           node-version: '16.17.1'
 
+      - name: Authorise Runner To Access DB
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-id sg-073338504589ab37f  \
+            --protocol tcp \
+            --port 5432 \
+            --cidr $(curl -s https://api.ipify.org)/32
+            --region ${{ env.AWS_REGION }}
+
       - name: Run Migration
         run: |
           npm install prisma@4.4.0
           npx prisma migrate deploy --schema ./frontend/prisma/schema.prisma
+
+      - name: Revoke Runner To Access DB
+        run: |
+          aws ec2 revoke-security-group-ingress \
+            --group-id sg-073338504589ab37f  \
+            --protocol tcp \
+            --port 5432 \
+            --cidr $(curl -s https://api.ipify.org)/32
+            --region ${{ env.AWS_REGION }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e
