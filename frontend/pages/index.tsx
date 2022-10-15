@@ -32,6 +32,7 @@ const Home: NextPage = () => {
           <title>Free Stable Diffusion</title>
           <meta name="description" content="Free Stable Diffusion" />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="canonical" href="https://text2images.com" />
         </Head>
         <TopBar session={session} />
         <h1 className="m-4 flex justify-center text-2xl text-dark-blue">
