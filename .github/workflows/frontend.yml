@@ -79,7 +79,7 @@ jobs:
       - name: Run Migration
         run: |
           npm install prisma@4.4.0
-          npx prisma migrate deploy --schema ./frontend/prisma/schema.prisma
+          npx prisma migrate deploy
 
       - name: Revoke Runner To Access DB
         run: |
