@@ -5,3 +5,6 @@ README.md
 .next
 docker
 .git
+.env.dist
+.env.local
+node_modules
