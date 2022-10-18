@@ -67,7 +67,6 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         uses: docker/build-push-action@v3
-        env:
         with:
           context: .
           file: frontend/Dockerfile
