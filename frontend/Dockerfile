@@ -1,4 +1,7 @@
 FROM --platform=$TARGETPLATFORM node:16.17.1 as base
+RUN  --mount=type=bind,target=. \
+     --mount=type=secret,id=DATABASE_URL \
+     DATABASE_URL=$(cat /run/secrets/DATABASE_URL)
 WORKDIR /app
 
 COPY frontend/ .
