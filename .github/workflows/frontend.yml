@@ -76,7 +76,8 @@ jobs:
           platforms: linux/amd64
           builder: ${{ steps.buildx.outputs.name }}
           build-args: |
-            DATABASE_URL
+            "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+            "BUILD=github-actions"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
