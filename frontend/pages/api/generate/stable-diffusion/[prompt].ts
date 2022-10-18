@@ -9,12 +9,16 @@ import {
   AWS_SECRET_ACCESS_KEY,
 } from '@/constants/aws';
 import { initialPrompt } from '@/constants/ai';
-// import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 const getImages = (prompt: string) => {
-  return `${S3_BUCKET_URL}/${prompt}/0.png`;
+  const images = [];
+  for (let i = 0; i < 1; i++) {
+    images.push(`${S3_BUCKET_URL}/${prompt}/${i}.png`);
+  }
+  return images;
 };
 
 const delay = (ms: number) => {
@@ -62,7 +66,7 @@ const hasAccessToImage = async (prompt: string) => {
 };
 interface Data {
   message?: string;
-  image?: string;
+  images?: string[];
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -77,11 +81,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     return;
   }
 
-  const image = getImages(prompt as string);
+  const images = getImages(prompt as string);
   if (prompt === initialPrompt) {
     res.status(200).json({
-      message: 'success',
-      image: image,
+      message: 'success.',
+      images: images,
     });
     return;
   }
@@ -104,29 +108,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       }
       i++;
     }
+
+    if (userId !== 'undefined') {
+      await prisma.collection.create({
+        data: {
+          name: prompt as string,
+          createDate: String(new Date().getTime()),
+          images: {
+            create: {
+              prompt: prompt as string,
+              image: images[0],
+              createDate: String(new Date().getTime()),
+            },
+          },
+          author: {
+            connect: {
+              id: userId as string,
+            },
+          },
+        },
+      });
+    }
   }
 
-  // if (userId !== 'undefined') {
-  //   await prisma.collection.create({
-  //     data: {
-  //       name: prompt as string,
-  //       images: {
-  //         create: {
-  //           prompt: prompt as string,
-  //           image: image,
-  //         },
-  //       },
-  //       author: {
-  //         connect: {
-  //           id: userId as string,
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
   res.status(200).json({
     message: 'success.',
-    image: image,
+    images: images,
   });
 };
 

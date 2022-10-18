@@ -1,0 +1,18 @@
+  // if (userId !== 'undefined') {
+  //   await prisma.collection.create({
+  //     data: {
+  //       name: prompt as string,
+  //       images: {
+  //         create: {
+  //           prompt: prompt as string,
+  //           image: image,
+  //         },
+  //       },
+  //       author: {
+  //         connect: {
+  //           id: userId as string,
+  //         },
+  //       },
+  //     },
+  //   });
+  // }

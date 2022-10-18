@@ -63,7 +63,7 @@ model collection {
   authorId       String
   published      Boolean  @default(true)
   hidden         Boolean  @default(false)
-  createDate     DateTime @default(now())
+  createDate     String
 }
 
 model image {
@@ -74,5 +74,5 @@ model image {
   collectionId   String
   published      Boolean    @default(true)
   hidden         Boolean    @default(false)
-  createDate     DateTime   @default(now())
+  createDate     String
 }

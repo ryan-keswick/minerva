@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "collection" ALTER COLUMN "createDate" DROP DEFAULT,
+ALTER COLUMN "createDate" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "image" ALTER COLUMN "createDate" DROP DEFAULT,
+ALTER COLUMN "createDate" SET DATA TYPE TEXT;

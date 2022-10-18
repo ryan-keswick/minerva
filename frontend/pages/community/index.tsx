@@ -24,6 +24,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       collections: collections,
     },
+    revalidate: 600,
   };
 };
 

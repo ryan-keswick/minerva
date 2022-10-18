@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   }) => {
     // Stop the form from submitting and refreshing the page.
     event.preventDefault();
-    setPrompt(event.target.prompt.value.toLowerCase().replace(/\s/g, '-'));
+    setPrompt(event.target.prompt.value);
   };
 
   return (
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
           width={512}
           height={512}
           prompt={prompt}
-          isLoading={isLoading || isError || !data}
+          isLoading={isLoading || isError || data.message === 'fail'}
         />
       </div>
       <br />

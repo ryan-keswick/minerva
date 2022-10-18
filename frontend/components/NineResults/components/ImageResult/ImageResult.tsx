@@ -2,7 +2,7 @@ import Image from 'next/image';
 import loadingImage from '@/public/svg/loading.svg';
 
 interface Props {
-  image?: string;
+  image?: { images: string[] };
   width?: number;
   height?: number;
   prompt: string;
@@ -16,10 +16,9 @@ export const ImageResult = ({
   prompt,
   isLoading,
 }: Props) => {
-  console.log('image:', image, 'isLoading:', isLoading);
   return (
     <div className="rounded-md border-2 border-white hover:border-dark-blue">
-      {isLoading ? (
+      {isLoading || !image?.images[0] ? (
         <Image
           className="rounded-md"
           src={loadingImage}
@@ -28,10 +27,10 @@ export const ImageResult = ({
           height={height}
         />
       ) : (
-        <a href={image} target="_blank" rel="noreferrer">
+        <a href={image.images[0]} target="_blank" rel="noreferrer">
           <Image
             className="rounded-md"
-            src={image}
+            src={image.images[0]}
             alt={prompt}
             width={width}
             height={height}
