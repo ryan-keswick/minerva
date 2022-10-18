@@ -1,7 +1,6 @@
 FROM --platform=$TARGETPLATFORM node:16.17.1 as base
-RUN --mount=type=secret,id=DATABASE_URL \
-  cat /run/secrets/DATABASE_URL
 WORKDIR /app
+ARG DATABASE_URL
 
 COPY frontend/ .
 COPY ./prisma ./prisma

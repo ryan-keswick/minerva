@@ -75,8 +75,8 @@ jobs:
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY}}:${{ github.sha }}
           platforms: linux/amd64
           builder: ${{ steps.buildx.outputs.name }}
-          secrets: |
-            "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+          build-args: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
