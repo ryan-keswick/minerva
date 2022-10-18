@@ -5,6 +5,7 @@ COPY frontend/ .
 COPY ./prisma ./prisma
 RUN yarn install --frozen-lockfile
 RUN yarn prisma generate
+RUN env
 RUN yarn build
 
 FROM --platform=$TARGETPLATFORM base as release
