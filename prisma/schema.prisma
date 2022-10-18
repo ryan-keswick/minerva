@@ -57,9 +57,7 @@ model VerificationToken {
 
 model collection {
   id             String   @id @default(cuid())
-  name           String
-  prompt         String
-  image          String   @unique
+  name           String   @default("Untitled")
   author         User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   images         image[]
   authorId       String
@@ -72,8 +70,8 @@ model image {
   id             String     @id @default(cuid())
   prompt         String
   image          String     @unique
-  owner          collection @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId        String
+  collection     collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  collectionId   String
   published      Boolean    @default(true)
   hidden         Boolean    @default(false)
   createDate     DateTime   @default(now())

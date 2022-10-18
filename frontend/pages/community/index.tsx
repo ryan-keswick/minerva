@@ -16,9 +16,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
       published: true,
       hidden: false,
     },
-    select: {
-      prompt: true,
-      image: true,
+    include: {
+      images: true,
     },
   });
   return {

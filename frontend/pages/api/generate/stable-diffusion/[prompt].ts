@@ -9,16 +9,12 @@ import {
   AWS_SECRET_ACCESS_KEY,
 } from '@/constants/aws';
 import { initialPrompt } from '@/constants/ai';
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 const getImages = (prompt: string) => {
-  const images = [];
-  for (let i = 0; i < 9; i++) {
-    images.push(`${S3_BUCKET_URL}/${prompt}/${i}.png`);
-  }
-  return images;
+  return `${S3_BUCKET_URL}/${prompt}/0.png`;
 };
 
 const delay = (ms: number) => {
@@ -66,7 +62,7 @@ const hasAccessToImage = async (prompt: string) => {
 };
 interface Data {
   message?: string;
-  images?: string[];
+  image?: string;
 }
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -81,11 +77,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     return;
   }
 
-  const images = getImages(prompt as string);
+  const image = getImages(prompt as string);
   if (prompt === initialPrompt) {
     res.status(200).json({
-      message: 'success.',
-      images: images,
+      message: 'success',
+      image: image,
     });
     return;
   }
@@ -110,24 +106,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     }
   }
 
-  if (userId !== 'undefined') {
-    try {
-      await prisma.prompt.create({
-        data: {
-          prompt: prompt as string,
-          image: images[0],
-          author: {
-            connect: {
-              id: userId as string,
-            },
-          },
-        },
-      });
-    } catch (error) {}
-  }
+  // if (userId !== 'undefined') {
+  //   await prisma.collection.create({
+  //     data: {
+  //       name: prompt as string,
+  //       images: {
+  //         create: {
+  //           prompt: prompt as string,
+  //           image: image,
+  //         },
+  //       },
+  //       author: {
+  //         connect: {
+  //           id: userId as string,
+  //         },
+  //       },
+  //     },
+  //   });
+  // }
   res.status(200).json({
     message: 'success.',
-    images: images,
+    image: image,
   });
 };
 

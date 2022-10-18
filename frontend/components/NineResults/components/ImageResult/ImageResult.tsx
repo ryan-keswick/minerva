@@ -2,7 +2,7 @@ import Image from 'next/image';
 import loadingImage from '@/public/svg/loading.svg';
 
 interface Props {
-  image: string;
+  image?: string;
   width?: number;
   height?: number;
   prompt: string;
@@ -16,6 +16,7 @@ export const ImageResult = ({
   prompt,
   isLoading,
 }: Props) => {
+  console.log('image:', image, 'isLoading:', isLoading);
   return (
     <div className="rounded-md border-2 border-white hover:border-dark-blue">
       {isLoading ? (

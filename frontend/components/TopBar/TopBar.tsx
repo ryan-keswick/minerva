@@ -40,7 +40,6 @@ export const TopBar = ({ session }: Props) => {
       <div className="grid place-content-end">
         {session ? (
           <>
-            Signed in as {session.user.name} <br />
             <button
               className="m-5 grid h-10 w-24 place-content-center rounded-full hover:bg-dark-blue hover:text-white"
               onClick={() => signOut({ redirect: false })}

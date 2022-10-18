@@ -44,11 +44,11 @@ const Home: NextPage = () => {
       <br />
       <div className="flex justify-center">
         <ImageResult
-          image={data.images[0]}
+          image={data}
           width={512}
           height={512}
           prompt={prompt}
-          isLoading={isLoading || isError || data.message === 'fail'}
+          isLoading={isLoading || isError || !data}
         />
       </div>
       <br />
