@@ -46,6 +46,24 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Authorise Runner To Access DB
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-id sg-073338504589ab37f  \
+            --protocol tcp \
+            --port 5432 \
+            --cidr $(curl -s https://api.ipify.org)/32
+
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.17.1'
+
+      - name: Run Migration
+        run: |
+          npm install prisma@4.4.0
+          npx prisma migrate deploy
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         uses: docker/build-push-action@v3
@@ -64,24 +82,6 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY}}:${{ github.sha }}
-
-      - name: Setup Node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16.17.1'
-
-      - name: Authorise Runner To Access DB
-        run: |
-          aws ec2 authorize-security-group-ingress \
-            --group-id sg-073338504589ab37f  \
-            --protocol tcp \
-            --port 5432 \
-            --cidr $(curl -s https://api.ipify.org)/32
-
-      - name: Run Migration
-        run: |
-          npm install prisma@4.4.0
-          npx prisma migrate deploy
 
       - name: Revoke Runner To Access DB
         run: |

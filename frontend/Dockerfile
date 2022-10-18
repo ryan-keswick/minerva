@@ -4,8 +4,8 @@ WORKDIR /app
 COPY frontend/ .
 COPY ./prisma ./prisma
 RUN yarn install --frozen-lockfile
-RUN yarn build
 RUN yarn prisma generate
+RUN yarn build
 
 FROM --platform=$TARGETPLATFORM base as release
 WORKDIR /app
