@@ -51,7 +51,7 @@ export const TopBar = ({ session }: Props) => {
         ) : (
           <button
             className="m-5 grid h-10 w-24 place-content-center rounded-full hover:bg-dark-blue hover:text-white"
-            onClick={() => signIn('cognito')}
+            onClick={() => signIn('google')}
           >
             Sign in
           </button>
