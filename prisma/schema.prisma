@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  // Need to comment out for dev
+  // Need to comment out for prod
   output          = "../frontend/node_modules/.prisma/client"
 }
 
