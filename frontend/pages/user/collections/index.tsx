@@ -78,6 +78,7 @@ export const UserCollections: NextPage = () => {
           </button>
         </div>
       )}
+      <Footer />
     </div>
   );
 };
