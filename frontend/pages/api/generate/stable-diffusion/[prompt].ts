@@ -10,6 +10,7 @@ import {
 } from '@/constants/aws';
 import { initialPrompt } from '@/constants/ai';
 import { PrismaClient } from '@prisma/client';
+import { detokenisePrompt } from '@/functions/prompts';
 
 const prisma = new PrismaClient();
 
@@ -112,7 +113,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     if (userId !== 'undefined') {
       await prisma.collection.create({
         data: {
-          name: prompt as string,
+          name: detokenisePrompt(prompt as string),
           createDate: String(new Date().getTime()),
           images: {
             create: {
