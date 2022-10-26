@@ -7,9 +7,7 @@
     "dev": "next dev",
     "start:production": "next start",
     "build": "next build",
-    "lint": "next lint",
-    "prisma:generate": "yarn prisma generate --schema=../prisma/schema.prisma",
-    "prisma:migrate:dev": "yarn prisma migrate dev --schema=../prisma/schema.prisma"
+    "lint": "next lint"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.161.0",

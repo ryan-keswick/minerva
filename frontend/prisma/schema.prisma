@@ -5,8 +5,6 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  // Need to comment out for prod
-  // output          = "../frontend/node_modules/.prisma/client"
 }
 
 model Account {
@@ -70,10 +68,10 @@ model collection {
 model image {
   id             String     @id @default(cuid())
   prompt         String
-  image          String     @unique
+  url            String     @unique
   collection     collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   collectionId   String
-  published      Boolean    @default(true)
+  published      Boolean    @default(false)
   hidden         Boolean    @default(false)
   createDate     String
 }

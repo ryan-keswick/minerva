@@ -3,5 +3,9 @@ export const tokenisePrompt = (prompt: string) => {
 };
 
 export const detokenisePrompt = (prompt: string) => {
-  return prompt.replace('-', ' ');
+  return prompt.replace(/-/g, ' ');
+};
+
+export const createKey = (prompt: string, userId?: string) => {
+  return userId ? `v2/${userId}/${prompt}.png` : `v2/${prompt}.png`;
 };

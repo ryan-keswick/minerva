@@ -13,13 +13,26 @@ interface Props {
   collections: collection & { images: image[] }[];
 }
 
+const Toggle = ({ text, toggle }: { text: string; toggle: string }) => {
+  return (
+    <div className="p-2 px-4">
+      <label
+        htmlFor={toggle}
+        className="relative grid cursor-pointer grid-cols-2 place-content-start"
+      >
+        <input type="checkbox" value="" id={toggle} className="peer sr-only" />
+        <span className="place-self-start text-sm">{text}</span>
+        <div className="peer h-6 w-11 place-self-end rounded-full bg-blue after:absolute after:top-[2px] after:left-[182px] after:h-5 after:w-5 after:rounded-full after:border after:border-baby-blue after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-baby-blue"></div>
+      </label>
+    </div>
+  );
+};
+
 export const UserCollections: NextPage = () => {
   const { data: session } = useSession();
   const { collections, isLoading, isError } = useUserCollections(
     session?.user?.id
   );
-
-  console.log();
   return (
     <div>
       <Head>
@@ -28,7 +41,6 @@ export const UserCollections: NextPage = () => {
           name="description"
           content="Your collections that you have generated using Minerva"
         />
-        <link rel="icon" href="/favicon.ico" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <Topbar session={session} />
@@ -44,20 +56,24 @@ export const UserCollections: NextPage = () => {
             <h1 className="flex justify-center">{'Error :('}</h1>
           ) : (
             collections && (
-              <div>
-                <div className="flex flex-row">
+              <div className="grid w-screen">
+                <div className="grid w-fit gap-1 justify-self-center sm:grid-cols-2 md:grid-cols-3 md:gap-2 lg:grid-cols-4 xl:grid-cols-5">
                   {collections.map((collection) => (
-                    <div
-                      key={collection.images[0].id}
-                      className="flex-basis-64 p-1"
-                    >
+                    <div key={collection.images[0].id} className="">
                       <Image
-                        src={collection.images[0].image}
+                        className="rounded-md"
+                        src={collection.images[0].url}
                         width={256}
                         height={256}
                         alt={detokenisePrompt(collection.images[0].prompt)}
                         key={collection.images[0].id}
                       />
+                      <div className="w-64 rounded-md bg-dark-blue text-white">
+                        <p className="p-2 px-4">
+                          {detokenisePrompt(collection.name)}
+                        </p>
+                        <Toggle text="Publish" />
+                      </div>
                     </div>
                   ))}
                 </div>
