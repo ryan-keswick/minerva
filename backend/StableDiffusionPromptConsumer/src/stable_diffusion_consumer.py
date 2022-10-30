@@ -21,6 +21,7 @@ class StableDiffusionConsumer:
 
         self.device = self.__get_device()
         self.logging_service.log(f"Using device: {self.device}")
+
         self.pipe = StableDiffusionPipeline.from_pretrained(
             "CompVis/stable-diffusion-v1-4",
             use_auth_token=environ["HUGGING_FACE_CLI_TOKEN"],
@@ -64,6 +65,7 @@ class StableDiffusionConsumer:
 
     def launch_consumer(self) -> None:
         """Launches the consumer"""
+        self.logging_service.log("Launching consumer")
         while True:
             messages = self.sqs_service.get_messages()
             for message in messages:

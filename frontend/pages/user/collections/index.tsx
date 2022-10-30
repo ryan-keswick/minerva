@@ -8,19 +8,43 @@ import Image from 'next/image';
 import { detokenisePrompt } from '@/functions/prompts';
 import { useUserCollections } from '@/hooks/useUserCollections/userUserCollections';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
 interface Props {
   collections: collection & { images: image[] }[];
 }
 
-const Toggle = ({ text, toggle }: { text: string; toggle: string }) => {
+const Toggle = ({
+  text,
+  id,
+  toggle,
+}: {
+  text: string;
+  id: string;
+  toggle: boolean;
+}) => {
+  const [active, setActive] = useState(toggle);
+  useEffect(() => {
+    fetch(`/api/user/collections/${id}`, {
+      method: 'UPDATE',
+      body: JSON.stringify({ active }),
+    });
+    console.log(active, id);
+  }, [id, active]);
   return (
     <div className="p-2 px-4">
       <label
-        htmlFor={toggle}
+        htmlFor={id}
         className="relative grid cursor-pointer grid-cols-2 place-content-start"
       >
-        <input type="checkbox" value="" id={toggle} className="peer sr-only" />
+        <input
+          type="checkbox"
+          value=""
+          id={id}
+          className="peer sr-only"
+          onChange={() => setActive(!active)}
+          checked={active}
+        />
         <span className="place-self-start text-sm">{text}</span>
         <div className="peer h-6 w-11 place-self-end rounded-full bg-blue after:absolute after:top-[2px] after:left-[182px] after:h-5 after:w-5 after:rounded-full after:border after:border-baby-blue after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-baby-blue"></div>
       </label>
@@ -72,7 +96,11 @@ export const UserCollections: NextPage = () => {
                         <p className="p-2 px-4">
                           {detokenisePrompt(collection.name)}
                         </p>
-                        <Toggle text="Publish" />
+                        <Toggle
+                          text="Publish"
+                          id={collection.id}
+                          toggle={collection.published}
+                        />
                       </div>
                     </div>
                   ))}
@@ -80,6 +108,7 @@ export const UserCollections: NextPage = () => {
               </div>
             )
           )}
+          <div>{session}</div>
         </>
       ) : (
         <div className="flex justify-center">
